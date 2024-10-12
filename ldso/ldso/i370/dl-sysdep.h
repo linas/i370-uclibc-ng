@@ -17,13 +17,11 @@
 struct elf_resolve;
 extern unsigned long _dl_linux_resolver(struct elf_resolve * tpnt, int reloc_entry);
 
-#if 0
 static __always_inline unsigned int
 _dl_urem(unsigned int n, unsigned int base)
 {
 	return 0;
 }
-#endif
 
 #define do_rem(result, n, base)     ((result) = _dl_urem((n), (base)))
 

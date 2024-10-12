@@ -10,12 +10,26 @@ Additional background info is at
 General instructions are in the [INSTALL](INSTALL) file.
 
 Quickstart:
+```
+cp ./extra/Configs/defconfigs/i370/defconfig .config
+make clean; make
+```
+
+Alternately:
+
 * `make menuconfig` select i370 CPU
 * In "Target Architecture Features and Options", scroll to bottom and
   set location of kernel headers.
 * In "Development/debugging options", fill in
   "Cross-compiling toolchain prefix" with
   `/usr/local/i370-ibm-linux/bin` (as appropriate).
+* In "General Library Settings"
+  disable:
+```
+  "Generate only Position Independent Code (PIC)"
+  "Enable shared libraries"
+  "Support global constructors and destructors"
+```
 
 Original README
 ---------------

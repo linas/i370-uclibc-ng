@@ -6,6 +6,14 @@ edition of the [i370 Bigfoot Project](https://github.com/linas/i370-bigfoot).
 Additional background info is at
 [Linas' i370 website](https://linas.org/linux/i370/i370.html).
 
+### Building Quickstart
+General instructions are in the [INSTALL](INSTALL) file.
+
+Quickstart:
+* `make menuconfig` select i370 CPU
+* Select `/usr/local/i370-ibm-linux/bin`  for the build tools
+* Set location of kernel headers
+
 Original README
 ---------------
   uClibc-ng - a small C Library for Linux

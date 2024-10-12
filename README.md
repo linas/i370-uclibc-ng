@@ -1,3 +1,13 @@
+uClibc for i370
+---------------
+This is a port of the uClibc-ng C library to the i370 toolchain for the
+IBM System/370 instruction set. It is a part of the 25th anniversary
+edition of the [i370 Bigfoot Project](https://github.com/linas/i370-bigfoot).
+Additional background info is at
+[Linas' i370 website](https://linas.org/linux/i370/i370.html).
+
+Original README
+---------------
   uClibc-ng - a small C Library for Linux
 
 uClibc-ng (aka µClibc-ng/pronounced yew-see-lib-see-next-generation) is a C

@@ -26,6 +26,7 @@ choice
 	default TARGET_frv if DESIRED_TARGET_ARCH = "frv"
 	default TARGET_h8300 if DESIRED_TARGET_ARCH = "h8300"
 	default TARGET_hppa if DESIRED_TARGET_ARCH = "hppa"
+	default TARGET_i370 if DESIRED_TARGET_ARCH = "i370"
 	default TARGET_i386 if DESIRED_TARGET_ARCH = "i386"
 	default TARGET_ia64 if DESIRED_TARGET_ARCH = "ia64"
 	default TARGET_kvx if DESIRED_TARGET_ARCH = "kvx"
@@ -86,6 +87,9 @@ config TARGET_h8300
 
 config TARGET_hppa
 	bool "hppa"
+
+config TARGET_i370
+	bool "i370"
 
 config TARGET_i386
 	bool "i386"
@@ -211,6 +215,10 @@ endif
 
 if TARGET_hppa
 source "extra/Configs/Config.hppa"
+endif
+
+if TARGET_i370
+source "extra/Configs/Config.i370"
 endif
 
 if TARGET_i386

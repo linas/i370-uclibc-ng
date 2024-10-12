@@ -26,8 +26,9 @@
 #include <bits/kernel_stat.h>
 
 #ifdef __ARCH_HAS_DEPRECATED_SYSCALLS__
-extern void __xstat_conv(struct kernel_stat *kbuf, struct stat *buf) attribute_hidden;
 extern void __xstat32_conv(struct kernel_stat64 *kbuf, struct stat *buf) attribute_hidden;
 extern void __xstat64_conv(struct kernel_stat64 *kbuf, struct stat64 *buf) attribute_hidden;
 #endif
 
+/* Need those anyway */
+extern void __xstat_conv(struct kernel_stat *kbuf, struct stat *buf) attribute_hidden;

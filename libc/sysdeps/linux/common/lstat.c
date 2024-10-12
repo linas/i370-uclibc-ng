@@ -75,6 +75,36 @@ int lstat(const char *file_name, struct stat *buf)
 }
 libc_hidden_def(lstat)
 
+/* Convert between the kernel's `struct stat' format, and libc's.
+   This is needed for i370, and I can't figure out how to force the
+   needed build, so I brute-force copied it. WTF, It works.  */
+
+#include <sys/stat.h>
+#include <string.h>
+#include "xstatconv.h"
+
+void __xstat_conv(struct kernel_stat *kbuf, struct stat *buf)
+{
+	/* Convert to current kernel version of `struct stat'. */
+	memset(buf, 0x00, sizeof(*buf));
+	buf->st_dev = kbuf->st_dev;
+	buf->st_ino = kbuf->st_ino;
+	buf->st_mode = kbuf->st_mode;
+	buf->st_nlink = kbuf->st_nlink;
+	buf->st_uid = kbuf->st_uid;
+	buf->st_gid = kbuf->st_gid;
+	buf->st_rdev = kbuf->st_rdev;
+	buf->st_size = kbuf->st_size;
+	buf->st_blksize = kbuf->st_blksize;
+	buf->st_blocks = kbuf->st_blocks;
+	buf->st_atim.tv_sec = kbuf->st_atim.tv_sec;
+	buf->st_atim.tv_nsec = kbuf->st_atim.tv_nsec;
+	buf->st_mtim.tv_sec = kbuf->st_mtim.tv_sec;
+	buf->st_mtim.tv_nsec = kbuf->st_mtim.tv_nsec;
+	buf->st_ctim.tv_sec = kbuf->st_ctim.tv_sec;
+	buf->st_ctim.tv_nsec = kbuf->st_ctim.tv_nsec;
+}
+
 # if ! defined __NR_fstatat64 && ! defined __NR_lstat64 && ! defined __UCLIBC_HAS_STATX__
 strong_alias_untyped(lstat,lstat64)
 libc_hidden_def(lstat64)

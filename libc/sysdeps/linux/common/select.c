@@ -27,8 +27,8 @@
 int __NC(select)(int n, fd_set *readfds, fd_set *writefds, fd_set *exceptfds,
 		 struct timeval *timeout)
 {
-#if defined(__NR_pselect6) || defined(__NR_pselect6_time64)
 	struct timespec _ts, *ts = 0;
+#if defined(__NR_pselect6) || defined(__NR_pselect6_time64)
 	if (timeout) {
 		uint32_t usec;
 		_ts.tv_sec = timeout->tv_sec;

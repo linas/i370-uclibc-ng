@@ -11,6 +11,11 @@
 #include <sysdep.h>
 #include <errno.h>
 
+#if 0
+
+I can't find the makefile that controls this. It should be getting
+handled with the UCLIBC_HAS_STUBS code instea of this.
+
 int
 renameat (int oldfd, const char *old, int newfd, const char *new)
 {
@@ -21,3 +26,4 @@ renameat (int oldfd, const char *old, int newfd, const char *new)
 #endif
 }
 libc_hidden_def (renameat)
+#endif

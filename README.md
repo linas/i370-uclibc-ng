@@ -11,8 +11,11 @@ General instructions are in the [INSTALL](INSTALL) file.
 
 Quickstart:
 * `make menuconfig` select i370 CPU
-* Select `/usr/local/i370-ibm-linux/bin`  for the build tools
-* Set location of kernel headers
+* In "Target Architecture Features and Options", scroll to bottom and
+  set location of kernel headers.
+* In "Development/debugging options", fill in
+  "Cross-compiling toolchain prefix" with
+  `/usr/local/i370-ibm-linux/bin` (as appropriate).
 
 Original README
 ---------------

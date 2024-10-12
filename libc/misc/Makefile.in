@@ -7,8 +7,7 @@
 
 
 include $(top_srcdir)libc/misc/assert/Makefile.in
-# Fails to build, and no way to turn itt off.
-# include $(top_srcdir)libc/misc/auxvt/Makefile.in
+include $(top_srcdir)libc/misc/auxvt/Makefile.in
 include $(top_srcdir)libc/misc/ctype/Makefile.in
 include $(top_srcdir)libc/misc/dirent/Makefile.in
 include $(top_srcdir)libc/misc/error/Makefile.in

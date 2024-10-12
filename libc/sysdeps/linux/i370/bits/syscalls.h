@@ -44,7 +44,7 @@
   internal_syscall##nr (number, err, args)
 
 #undef INTERNAL_SYSCALL_DECL
-#define INTERNAL_SYSCALL_DECL(err) int err
+#define INTERNAL_SYSCALL_DECL(err) int err = 0;
 
 #undef INTERNAL_SYSCALL_ERROR_P
 #define INTERNAL_SYSCALL_ERROR_P(val, err) ({ (void) (val); (err) != 0; })
@@ -54,9 +54,9 @@
 
 #define internal_syscall0(num, err, dummy...)                           \
   ({                                                                    \
-    long _sc_ret;                                                       \
+    unsigned long __sc_ret;                                             \
     register unsigned long __reg_1 __asm__ ("r1");                      \
-    register unsigned long __reg_15 __asm__ ("r15");                    \
+    register unsigned long __reg_15 __asm__ ("r15") = 0;                \
                                                                         \
     __reg_1 = num;                                                      \
     __asm__ __volatile__ (                                              \
@@ -69,10 +69,10 @@
 
 #define internal_syscall1(num, err, arg1)                               \
   ({                                                                    \
-    long _sc_ret;                                                       \
+    unsigned long __sc_ret;                                             \
     register unsigned long __reg_1 __asm__ ("r1");                      \
     register unsigned long __reg_5 __asm__ ("r5");                      \
-    register unsigned long __reg_15 __asm__ ("r15");                    \
+    register unsigned long __reg_15 __asm__ ("r15") = 0;                \
                                                                         \
     __reg_1 = num;                                                      \
     __reg_5 = (unsigned long) (arg1);                                   \
@@ -87,15 +87,15 @@
 
 #define internal_syscall2(num, err, arg1, arg2)                         \
   ({                                                                    \
-    long _sc_ret;                                                       \
+    unsigned long __sc_ret;                                             \
     register unsigned long __reg_1 __asm__ ("r1");                      \
     register unsigned long __reg_5 __asm__ ("r5");                      \
     register unsigned long __reg_6 __asm__ ("r6");                      \
-    register unsigned long __reg_15 __asm__ ("r15");                    \
+    register unsigned long __reg_15 __asm__ ("r15") = 0;                \
                                                                         \
     __reg_1 = num;                                                      \
     __reg_5 = (unsigned long) (arg1);                                   \
-    __reg_6 = (unsigned long) (arg6);                                   \
+    __reg_6 = (unsigned long) (arg2);                                   \
     __asm__ __volatile__ (                                              \
       "   SVC   0"                                                      \
       : "=&r" (__reg_15), "=&r" (__reg_1)                               \
@@ -108,17 +108,17 @@
 
 #define internal_syscall3(num, err, arg1, arg2, arg3)                   \
   ({                                                                    \
-    long _sc_ret;                                                       \
+    unsigned long __sc_ret;                                             \
     register unsigned long __reg_1 __asm__ ("r1");                      \
     register unsigned long __reg_5 __asm__ ("r5");                      \
     register unsigned long __reg_6 __asm__ ("r6");                      \
     register unsigned long __reg_7 __asm__ ("r7");                      \
-    register unsigned long __reg_15 __asm__ ("r15");                    \
+    register unsigned long __reg_15 __asm__ ("r15") = 0;                \
                                                                         \
     __reg_1 = num;                                                      \
     __reg_5 = (unsigned long) (arg1);                                   \
-    __reg_6 = (unsigned long) (arg6);                                   \
-    __reg_7 = (unsigned long) (arg7);                                   \
+    __reg_6 = (unsigned long) (arg2);                                   \
+    __reg_7 = (unsigned long) (arg3);                                   \
     __asm__ __volatile__ (                                              \
       "   SVC   0"                                                      \
       : "=&r" (__reg_15), "=&r" (__reg_1)                               \
@@ -132,19 +132,19 @@
 
 #define internal_syscall4(num, err, arg1, arg2, arg3, arg4)             \
   ({                                                                    \
-    long _sc_ret;                                                       \
+    unsigned long __sc_ret;                                             \
     register unsigned long __reg_1 __asm__ ("r1");                      \
     register unsigned long __reg_5 __asm__ ("r5");                      \
     register unsigned long __reg_6 __asm__ ("r6");                      \
     register unsigned long __reg_7 __asm__ ("r7");                      \
     register unsigned long __reg_8 __asm__ ("r8");                      \
-    register unsigned long __reg_15 __asm__ ("r15");                    \
+    register unsigned long __reg_15 __asm__ ("r15") = 0;                \
                                                                         \
     __reg_1 = num;                                                      \
     __reg_5 = (unsigned long) (arg1);                                   \
-    __reg_6 = (unsigned long) (arg6);                                   \
-    __reg_7 = (unsigned long) (arg7);                                   \
-    __reg_8 = (unsigned long) (arg8);                                   \
+    __reg_6 = (unsigned long) (arg2);                                   \
+    __reg_7 = (unsigned long) (arg3);                                   \
+    __reg_8 = (unsigned long) (arg4);                                   \
     __asm__ __volatile__ (                                              \
       "   SVC   0"                                                      \
       : "=&r" (__reg_15), "=&r" (__reg_1)                               \
@@ -159,21 +159,21 @@
 
 #define internal_syscall5(num, err, arg1, arg2, arg3, arg4, arg5)       \
   ({                                                                    \
-    long _sc_ret;                                                       \
+    unsigned long __sc_ret;                                             \
     register unsigned long __reg_1 __asm__ ("r1");                      \
     register unsigned long __reg_5 __asm__ ("r5");                      \
     register unsigned long __reg_6 __asm__ ("r6");                      \
     register unsigned long __reg_7 __asm__ ("r7");                      \
     register unsigned long __reg_8 __asm__ ("r8");                      \
     register unsigned long __reg_9 __asm__ ("r9");                      \
-    register unsigned long __reg_15 __asm__ ("r15");                    \
+    register unsigned long __reg_15 __asm__ ("r15") = 0;                \
                                                                         \
     __reg_1 = num;                                                      \
     __reg_5 = (unsigned long) (arg1);                                   \
-    __reg_6 = (unsigned long) (arg6);                                   \
-    __reg_7 = (unsigned long) (arg7);                                   \
-    __reg_8 = (unsigned long) (arg8);                                   \
-    __reg_9 = (unsigned long) (arg9);                                   \
+    __reg_6 = (unsigned long) (arg2);                                   \
+    __reg_7 = (unsigned long) (arg3);                                   \
+    __reg_8 = (unsigned long) (arg4);                                   \
+    __reg_9 = (unsigned long) (arg5);                                   \
     __asm__ __volatile__ (                                              \
       "   SVC   0"                                                      \
       : "=&r" (__reg_15), "=&r" (__reg_1)                               \
@@ -186,3 +186,38 @@
       );                                                                \
     __sc_ret = __reg_15;                                                \
   })
+
+#define internal_syscall6(num, err, arg1, arg2, arg3, arg4, arg5, arg6) \
+  ({                                                                    \
+    unsigned long __sc_ret;                                             \
+    register unsigned long __reg_1 __asm__ ("r1");                      \
+    register unsigned long __reg_5 __asm__ ("r5");                      \
+    register unsigned long __reg_6 __asm__ ("r6");                      \
+    register unsigned long __reg_7 __asm__ ("r7");                      \
+    register unsigned long __reg_8 __asm__ ("r8");                      \
+    register unsigned long __reg_9 __asm__ ("r9");                      \
+    register unsigned long __reg_10 __asm__ ("r10");                    \
+    register unsigned long __reg_15 __asm__ ("r15") = 0;                \
+                                                                        \
+    __reg_1 = num;                                                      \
+    __reg_5 = (unsigned long) (arg1);                                   \
+    __reg_6 = (unsigned long) (arg2);                                   \
+    __reg_7 = (unsigned long) (arg3);                                   \
+    __reg_8 = (unsigned long) (arg4);                                   \
+    __reg_9 = (unsigned long) (arg5);                                   \
+    __reg_10 = (unsigned long) (arg6);                                  \
+    __asm__ __volatile__ (                                              \
+      "   SVC   0"                                                      \
+      : "=&r" (__reg_15), "=&r" (__reg_1)                               \
+      : "0"   (__reg_15), "1"   (__reg_1),                              \
+        "r"   (__reg_5),                                                \
+        "r"   (__reg_6),                                                \
+        "r"   (__reg_7),                                                \
+        "r"   (__reg_8),                                                \
+        "r"   (__reg_9),                                                \
+        "r"   (__reg_10)                                                \
+      );                                                                \
+    __sc_ret = __reg_15;                                                \
+  })
+
+#endif

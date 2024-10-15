@@ -73,10 +73,17 @@ _start:
 	#    92         Arg 1
 	#    ...
 	#
+	# Expected signature:
+	# void __uClibc_main(int (*main)(int, char **, char **), int argc,
+	#          char **argv, void (*app_init)(void), void (*app_fini)(void),
+	#          void (*rtld_fini)(void),
+	#          void *stack_end attribute_unused) attribute_noreturn;
+	#
+	L       r9,=A(main)    # Get address of main
+	ST      r9,88(,r11)    # Pass main on stack.
 	L       r2,0(r2)       # Get value of argc
-	ST      r2,88(,r11)    # Pass argc on stack.
-	ST      r3,92(,r11)    # Pass argv on stack
-	ST      r4,96(,r11)    # Pass envp on stack
+	ST      r2,92(,r11)    # Pass argc on stack.
+	ST      r3,96(,r11)    # Pass argv on stack
 #if defined(__UCLIBC_CTOR_DTOR__)
 	L       r9,=A(_init)   # Get address of _init()
 	L       r10,=A(_fini)
@@ -87,6 +94,10 @@ _start:
 
 	ST      r9,100(,r11)   # _init
 	ST      r10,104(,r11)  # _fini
+
+	SLR     r9,r9          # zero
+	ST      r9,108(,r11)   # rtld_fini
+	ST      r9,112(,r11)   # stack_end
 
 	LA      r14,12(,r11)   # Set up link register
 

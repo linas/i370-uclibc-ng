@@ -77,21 +77,21 @@ _start:
 	ST      r2,88(,r11)    # Pass argc on stack.
 	ST      r3,92(,r11)    # Pass argv on stack
 	ST      r4,96(,r11)    # Pass envp on stack
+#if defined(__UCLIBC_CTOR_DTOR__)
+	L       r9,=A(_init)   # Get address of _init()
+	L       r10,=A(_fini)
+#else
+	SLR     r9,r9          # zero
+	SLR     r10,r10        # zero
+#endif
+
+	ST      r9,100(,r11)   # _init
+	ST      r10,104(,r11)  # _fini
 
 	LA      r14,12(,r11)   # Set up link register
 
-# Not today
-#	L       r15,=A(_init)  # Get address of _init()
-#	BASR    r14,r15        # BASR will write PSW to 12(,r11)
-
-	L       r15,=A(main)   # Get address of main()
+	L       r15,=A(__uClibc_main)   # Get address of main()
 	BASR    r14,r15        # BASR will write PSW to 12(,r11)
-
-#	# Pass _fini as argument to _atexit
-#	L       r1,=A(_fini)
-#	ST      r1,88(,r11)
-#	L       r15,=A(_atexit) # Ummm. Ain't got none.
-#	BASR    r1,r15
 
 _exit:
 	# Brute force when not provided

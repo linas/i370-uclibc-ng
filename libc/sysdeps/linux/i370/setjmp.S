@@ -13,7 +13,7 @@
 .globl setjmp
 	.type setjmp, @function
 setjmp:
-	L     r15,88(r13)       /* Get addr of jump buffer */
+	L     r15,88(r11)       /* Get addr of jump buffer */
 	STM   r0,r14,0(r15)     /* Save regs to jump buffer */
 	LA    r15,0(,0)         /* Return success */
 	BR    r14               /* Return to caller */
@@ -22,7 +22,7 @@ setjmp:
 .globl _setjmp
 	.type _setjmp, @function
 _setjmp:
-	L     r15,88(,r13)      /* Get addr of jump buffer */
+	L     r15,88(,r11)      /* Get addr of jump buffer */
 	STM   r0,r14,0(r15)     /* Save regs to jump buffer */
 	LA    r15,0(,0)         /* Return success */
 	BR    r14               /* Return to caller */

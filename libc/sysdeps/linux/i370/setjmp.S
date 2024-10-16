@@ -1,13 +1,11 @@
 
 	.text
 
-/* The implementation here is wrong.
+/* The implementation here barely kind-of works. It's under-designed.
    Here's what we actually need to do:
    -- save regs into jump buffer, given as arg0 88(r13)
 	-- if arg1 is 1, then save signals, too.
    -- This is not the usual ELF frame reg save order !? ??
-
-   The "implementation" below is wrong; its just enough to build.
  */
 	.balign 2
 .globl setjmp

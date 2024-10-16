@@ -16,3 +16,5 @@ __longjmp:
 	LM    r0,r14,0(r15)     /* Save regs to jump buffer */
 	L     r15,60(,r15)      /* Get return code */
 	BR    r14               /* Return to caller */
+
+libc_hidden_def(__longjmp)

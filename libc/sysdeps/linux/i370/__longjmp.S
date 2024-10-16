@@ -13,7 +13,7 @@
 	.type __longjmp, @function
 __longjmp:
 	L     r15,88(r11)       /* Get addr of jump buffer */
-	LM    r0,r14,0(r15)     /* Save regs to jump buffer */
+	LM    r0,r14,0(r15)     /* Restore regs from jump buffer */
 	L     r15,60(,r15)      /* Get return code */
 	BR    r14               /* Return to caller */
 

@@ -291,7 +291,7 @@ struct file_handle {
 
 #define MAX_HANDLE_SZ  128
 
-int name_to_handle_at(int dirfd, const char *pathname,
+int name_to_handle_at(int dirfid, const char *pathname,
 	struct file_handle *handle, int *mount_id, int flags);
 int open_by_handle_at(int mount_fd, struct file_handle *handle, int flags);
 #endif

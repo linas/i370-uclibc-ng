@@ -25,32 +25,31 @@
 # undef INLINE_SYSCALL
 # define INLINE_SYSCALL(name, nr, args...)                              \
   ({                                                                    \
-    INTERNAL_SYSCALL_DECL (_sc_err);                                    \
-    unsigned long _sc_val = INTERNAL_SYSCALL (name, _sc_err, nr, args); \
-    if (__builtin_expect (INTERNAL_SYSCALL_ERROR_P (_sc_val, _sc_err), 0)) \
+    unsigned long _sc_val = INTERNAL_SYSCALL (name, _unused, nr, args); \
+    if (__builtin_expect (INTERNAL_SYSCALL_ERROR_P (_sc_val, _unused), 0)) \
     {                                                                   \
-      __set_errno (INTERNAL_SYSCALL_ERRNO (_sc_val, _sc_err));          \
+      __set_errno (INTERNAL_SYSCALL_ERRNO (_sc_val, _unused));          \
       _sc_val = -1;                                                     \
     }                                                                   \
     (long) _sc_val;                                                     \
   })
 
 #undef INTERNAL_SYSCALL
-#define INTERNAL_SYSCALL(name, err, nr, args...)        \
-  internal_syscall##nr (SYS_ify (name), err, args)
+#define INTERNAL_SYSCALL(name, unused, nr, args...)        \
+  internal_syscall##nr (SYS_ify (name), unused, args)
 
 #undef INTERNAL_SYSCALL_NCS
-#define INTERNAL_SYSCALL_NCS(number, err, nr, args...)  \
-  internal_syscall##nr (number, err, args)
+#define INTERNAL_SYSCALL_NCS(number, unused, nr, args...)  \
+  internal_syscall##nr (number, unused, args)
 
 #undef INTERNAL_SYSCALL_DECL
-#define INTERNAL_SYSCALL_DECL(err) int err = 0;
+#define INTERNAL_SYSCALL_DECL(err)
 
 #undef INTERNAL_SYSCALL_ERROR_P
-#define INTERNAL_SYSCALL_ERROR_P(val, err) ({ (void) (val); (err) != 0; })
+#define INTERNAL_SYSCALL_ERROR_P(val, unused) ((val) != 0)
 
 #undef INTERNAL_SYSCALL_ERRNO
-#define INTERNAL_SYSCALL_ERRNO(val, err) ({ (void) (val); (err); })
+#define INTERNAL_SYSCALL_ERRNO(val, unused) (-(val))
 
 #define internal_syscall0(num, err, dummy...)                           \
   ({                                                                    \

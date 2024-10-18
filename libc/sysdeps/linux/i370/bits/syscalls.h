@@ -45,8 +45,10 @@
 #undef INTERNAL_SYSCALL_DECL
 #define INTERNAL_SYSCALL_DECL(err)
 
+/* Return value is -errno, and errno is always less than 4095 */
 #undef INTERNAL_SYSCALL_ERROR_P
-#define INTERNAL_SYSCALL_ERROR_P(val, unused) ((val) != 0)
+#define INTERNAL_SYSCALL_ERROR_P(val, unused) \
+	((((int)(val)) < 0) && (-4095 < ((int)(val))))
 
 #undef INTERNAL_SYSCALL_ERRNO
 #define INTERNAL_SYSCALL_ERRNO(val, unused) (-(val))

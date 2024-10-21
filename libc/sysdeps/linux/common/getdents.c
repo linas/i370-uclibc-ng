@@ -146,7 +146,9 @@ ssize_t __getdents (int fd, char *buf, size_t nbytes)
 	dp->d_ino = kdp->d_ino;
 	dp->d_off = kdp->d_off;
 	dp->d_reclen = new_reclen;
+#if _DIRENT_HAVE_D_TYPE
 	dp->d_type = DT_UNKNOWN;
+#endif
 	memcpy (dp->d_name, kdp->d_name,
 		kdp->d_reclen - offsetof (struct kernel_dirent, d_name));
 	dp = (struct dirent *) ((char *) dp + new_reclen);

@@ -1,2 +1,2 @@
-CSRC-y := nanosleep.c __syscall_error.c
+CSRC-y := nanosleep.c __syscall_error.c clock_gettime.c clock_settime.c
 SSRC-y := __longjmp.S setjmp.S

@@ -1,9 +1,7 @@
 #ifndef _BITS_STAT_STRUCT_H
 #define _BITS_STAT_STRUCT_H
 
-/* This file provides whatever this particular arch's kernel thinks
- * struct stat should look like...  It turns out each arch has a
- * different opinion on the subject... */
+/* This file provides the i370 version of struct stat. */
 
 struct kernel_stat {
 	unsigned long st_dev;

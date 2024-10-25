@@ -194,7 +194,7 @@ UCLIBC_HAS_FNMATCH=y
 # UCLIBC_HAS_FTW is not set
 # UCLIBC_HAS_FTS is not set
 UCLIBC_HAS_GLOB=y
-# UCLIBC_HAS_GNU_GLOB is not set
+UCLIBC_HAS_GNU_GLOB=y
 
 #
 # Library Installation Options

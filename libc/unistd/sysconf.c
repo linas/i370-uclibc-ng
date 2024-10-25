@@ -102,6 +102,7 @@ static int nprocessors_onln(void)
 static int nprocessors_conf(void)
 {
 	int ret = 0;
+#ifndef __TARGET_i370__
 	DIR *dir = opendir("/sys/devices/system/cpu");
 
 	if (dir) {
@@ -117,6 +118,7 @@ static int nprocessors_conf(void)
 		}
 		closedir(dir);
 	} else
+#endif
 	{
 #if defined __sparc__
 		char **l = NULL;

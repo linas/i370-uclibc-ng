@@ -4,13 +4,13 @@
 /* This file provides the i370 version of struct stat. */
 
 struct kernel_stat {
-	unsigned long st_dev;
-	unsigned long st_ino;
-	unsigned short st_mode;
+	unsigned int st_dev;
+	unsigned int st_ino;
+	unsigned int st_mode;
 	unsigned short st_nlink;
-	unsigned short st_uid;
-	unsigned short st_gid;
-	unsigned short st_rdev;
+	unsigned int st_uid;
+	unsigned int st_gid;
+	unsigned int st_rdev;
 	unsigned long  st_size;
 	unsigned long  st_blksize;
 	unsigned long  st_blocks;

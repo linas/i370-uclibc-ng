@@ -60,7 +60,7 @@ UCLIBC_HAS_FPU=y
 DO_C99_MATH=y
 # DO_XSI_MATH is not set
 # UCLIBC_HAS_LONG_DOUBLE_MATH is not set
-KERNEL_HEADERS="/usr/local/i370-linux/include"
+KERNEL_HEADERS="/usr/local/i370-linux-uclibc/usr/include"
 HAVE_DOT_CONFIG=y
 
 #

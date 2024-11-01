@@ -9,8 +9,8 @@
 /*#define __UCLIBC_ABORT_INSTRUCTION__ "asm instruction"*/
 #undef __UCLIBC_ABORT_INSTRUCTION__
 
-/* can your target use syscall6() for mmap ? */
-#undef __UCLIBC_MMAP_HAS_6_ARGS__
+/* Yes, i370 can handle six registers for syscall6() for mmap. */
+#define __UCLIBC_MMAP_HAS_6_ARGS__
 
 /* does your target use statx */
 #undef __UCLIBC_HAVE_STATX__

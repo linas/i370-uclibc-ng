@@ -37,6 +37,7 @@
 #define FLT_EPSILON 1.19209290e-07F
    /* Minimum int x such that FLT_RADIX**(x-1) is a normalised float */
    /* Radix is 16, so 16**(-65) is smallest normalized float. */
+   /* This is 16**(-64) divided by 16 to get to the LSB. */
 #undef FLT_MIN_EXP
 #define FLT_MIN_EXP (-64)
    /* Minimum normalised float. Equal to 16**(-65) */
@@ -92,9 +93,6 @@
 #undef DBL_MAX_10_EXP
 #define DBL_MAX_10_EXP FLT_MAX_10_EXP
 
-/* <bits/uClibc_fpmax.h> wants this, rounded up. */
-#define DECIMAL_DIG (DBL_DIG+1)
-
 #ifdef LATER_NOT_TODAY
    /* The definitions below should be correct, except the compiler
       does not support long doubles at this time. */
@@ -136,5 +134,13 @@
 #define LDBL_MAX_10_EXP FLT_MAX_10_EXP
 
 #endif /* LATER */
+
+/* Special hacks to keep uClibc happy */
+/* <bits/uClibc_fpmax.h> wants this, rounded up. */
+#define DECIMAL_DIG (DBL_DIG+1)
+
+/* libc/stdio/_fpmaxtostr.c:92 is unhappy, so lie to it. */
+#undef DBL_MIN_10_EXP
+#define DBL_MIN_10_EXP (-DBL_MAX_10_EXP)
 
 #endif /*  _FLOAT_H_ */

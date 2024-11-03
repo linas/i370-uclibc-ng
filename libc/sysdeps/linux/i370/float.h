@@ -60,6 +60,7 @@
 #undef DBL_MANT_DIG
 #define DBL_MANT_DIG 14
    /* Number of decimal digits of precision in a double */
+   /* Equal to DBL_MANT_DIG * log10 (16) rounded down. */
 #undef DBL_DIG
 #define DBL_DIG 16
    /* Difference between 1.0 and the minimum double greater than 1.0 */
@@ -90,6 +91,13 @@
    /* Same as for floats */
 #undef DBL_MAX_10_EXP
 #define DBL_MAX_10_EXP FLT_MAX_10_EXP
+
+/* <bits/uClibc_fpmax.h> wants this, rounded up. */
+#define DECIMAL_DIG (DBL_DIG+1)
+
+#ifdef LATER_NOT_TODAY
+   /* The definitions below should be correct, except the compiler
+      does not support long doubles at this time. */
 
    /* Number of base-FLT_RADIX digits in the significand of a long double */
 #undef LDBL_MANT_DIG
@@ -126,5 +134,7 @@
    /* Same as float */
 #undef LDBL_MAX_10_EXP
 #define LDBL_MAX_10_EXP FLT_MAX_10_EXP
+
+#endif /* LATER */
 
 #endif /*  _FLOAT_H_ */

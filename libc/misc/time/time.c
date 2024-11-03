@@ -513,23 +513,28 @@ char *ctime_r(const time_t *t, char *buf)
 
 #include <float.h>
 
-#if FLT_RADIX != 2
-#error difftime implementation assumptions violated for you arch!
+/* FLT_RADIX = 16 is for "Hexadecimal Floating Point" (HFP) e.g. IBM S/390 */
+#if FLT_RADIX == 2
+  #define DBL_MANT_BITS DBL_MANT_DIG
+#elif FLT_RADIX == 16
+  #define DBL_MANT_BITS (4*DBL_MANT_DIG)
+#else
+  #error difftime implementation assumptions violated for you arch!
 #endif
 
 double difftime(time_t time1, time_t time0)
 {
-#if (LONG_MAX >> DBL_MANT_DIG) == 0
+#if (LONG_MAX >> DBL_MANT_BITS) == 0
 
 	/* time_t fits in the mantissa of a double. */
 	return (double)time1 - (double)time0;
 
-#elif ((LONG_MAX >> DBL_MANT_DIG) >> DBL_MANT_DIG) == 0
+#elif ((LONG_MAX >> DBL_MANT_BITS) >> DBL_MANT_BITS) == 0
 
 	/* time_t can overflow the mantissa of a double. */
 	time_t t1, t0, d;
 
-	d = ((time_t) 1) << DBL_MANT_DIG;
+	d = ((time_t) 1) << DBL_MANT_BITS;
 	t1 = time1 / d;
 	time1 -= (t1 * d);
 	t0 = time0 / d;

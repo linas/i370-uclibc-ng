@@ -37,7 +37,7 @@
 #undef __UCLIBC_HAVE_ASM_CFI_DIRECTIVES__
 
 /* define if target supports IEEE signed zero floats */
-/* Hmm i370 does not have IEEE floats ... */
+/* Hmm i370 does not have IEEE floats but it does have a signed zero ... */
 #define __UCLIBC_HAVE_SIGNED_ZERO__
 
 /* only weird assemblers generally need this */

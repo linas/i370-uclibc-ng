@@ -2,6 +2,7 @@
 #
    .text
    .balign 4
+   .global _dl_linux_resolve
    .type _dl_linux_resolve, @function
 _dl_linux_resolve:
 # Function prologue

@@ -56,11 +56,10 @@ elf_machine_dynamic (void)
 static __always_inline Elf32_Addr __attribute__ ((unused))
 elf_machine_load_address (void)
 {
-	Elf32_Addr addr;
-	__asm__ (
-		"L      %0,=V(__dl_start)"
-	     : "=r" (addr) );
-	return addr;
+	Elf32_Addr got_addr = elf_machine_dynamic();
+
+	/* I guess some additional math is needed here. */
+	return got_addr;
 }
 
 static __always_inline void

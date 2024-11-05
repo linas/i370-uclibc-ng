@@ -3888,6 +3888,30 @@ typedef Elf32_Addr Elf32_Conflict;
 
 #define R_RISCV_NUM             58
 
+/* i370 relocations
+   Note that there is really just one relocation that we currently
+   support (and only one that we seem to need, at the moment), and
+   that is the 31-bit address relocation.  Note that the 370/390
+   only supports a 31-bit (2GB) address space.  The others are
+   defined for historical reasons. */
+
+#define R_I370_NONE       0
+#define R_I370_ADDR31     1
+#define R_I370_ADDR32     2
+#define R_I370_ADDR16     3
+#define R_I370_REL31      4
+#define R_I370_REL32      5
+#define R_I370_ADDR12     6
+#define R_I370_REL12      7
+#define R_I370_ADDR8      8
+#define R_I370_REL8       9
+#define R_I370_COPY      10
+#define R_I370_RELATIVE  11
+
+#define  EF_I370_RELOCATABLE     0x00010000  /* i370 -mrelocatable flag */
+#define  EF_I370_RELOCATABLE_LIB 0x00008000  /* i370 -mrelocatable-lib flag */
+
+
 #ifdef	__cplusplus
 }
 #endif

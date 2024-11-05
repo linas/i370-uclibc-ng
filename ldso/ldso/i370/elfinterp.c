@@ -15,6 +15,16 @@
 
 extern int _dl_linux_resolve(void);
 
+/* Start with system call hack, because i370 does not have __NR_readlinkat */
+static __always_inline _syscall3(int, readlink,
+          const char *, path, char *, buf, size_t, bufsiz);
+
+int _dl_readlink(int id, const char * path, char * buf, size_t bufsiz)
+{
+  return readlink(path, buf, bufsiz);
+}
+
+
 /* Uncomment when some relocs will be handled lazily */
 #if 0
 unsigned long _dl_linux_resolver(struct elf_resolve *tpnt, int reloc_entry)

@@ -48,7 +48,7 @@ static __always_inline Elf32_Addr __attribute__ ((unused))
 elf_machine_dynamic (void)
 {
 	register Elf32_Addr *got;
-	// __asm__ ("mov r12,%0" :"=r" (got));
+	__asm__ ("L   %0,=V(_DYNAMIC)" :"=r" (got));
 	return *got;
 }
 
@@ -57,10 +57,9 @@ static __always_inline Elf32_Addr __attribute__ ((unused))
 elf_machine_load_address (void)
 {
 	Elf32_Addr addr;
-#if LATER
-	__asm__ (""
-	     : "=r" (addr) : : "r0", "r1", "r2");
-#endif
+	__asm__ (
+		"L      %0,=V(__dl_start)"
+	     : "=r" (addr) );
 	return addr;
 }
 

@@ -8,11 +8,18 @@
 #include <elf.h>
 
 /* Here we define the magic numbers that this dynamic loader should accept */
-#define MAGIC1 EM_SH
+#define MAGIC1 EM_S370
 #undef  MAGIC2
 
 /* Used for error messages */
 #define ELF_TARGET "i370"
+
+/* Initialization sequence for the GOT.  */
+#define INIT_GOT(GOT_BASE,MODULE)                  \
+{                                                  \
+  GOT_BASE[2] = (unsigned long) _dl_linux_resolve; \
+  GOT_BASE[1] = (unsigned long) MODULE;            \
+}
 
 struct elf_resolve;
 extern unsigned long _dl_linux_resolver(struct elf_resolve * tpnt, int reloc_entry);
@@ -31,10 +38,8 @@ _dl_urem(unsigned int n, unsigned int base)
    ELF_RTYPE_CLASS_NOCOPY iff TYPE should not be allowed to resolve to one
    of the main executable's symbols, as for a COPY reloc.  */
 # define elf_machine_type_class(type) \
-  ((((type) == R_SH_JMP_SLOT || (type) == R_SH_TLS_DTPMOD32		      \
-     || (type) == R_SH_TLS_DTPOFF32 || (type) == R_SH_TLS_TPOFF32)	      \
-    * ELF_RTYPE_CLASS_PLT)						      \
-   | (((type) == R_SH_COPY) * ELF_RTYPE_CLASS_COPY))
+  ( ( (0)    * ELF_RTYPE_CLASS_PLT)						      \
+   | (((type) == R_I370_COPY) * ELF_RTYPE_CLASS_COPY))
 
 /* Return the link-time address of _DYNAMIC.  Conveniently, this is the
    first element of the GOT.  This must be inlined in a function which

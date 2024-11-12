@@ -3,6 +3,13 @@
  */
 
 /* Why is this here, instead of some *.S file ? */
+
+/* Below is an attempt, but it doesn't make it out the gates
+   because the current linker doesn't relocate the .ltorg.
+   Not sure why; other stand-alones don't have this problem.
+   At any rate, cannot even call into C code, yet, not until
+   the linker is fixed.
+ */
 __asm__(
     " .section .text\n"
     ".globl   _start\n"
@@ -12,7 +19,7 @@ __asm__(
     " BASR    r6,0\n"              /* Figure out where we are. */
     " .using .,r6\n"               /* Establish addressing. */
     " ST      r1,0(r11)\n"         /* r1 holds SP, r11 holds FP. */
-    " L       r15,=V(_dl_start)\n"
+    " L       r15,=A(_start_glue)\n"
     " BASR    r14,r15\n"           /* Perform relocation. */
 
 /* TODO: I guess 0(r11) should be _GLOBAL_OFFSET_TABLE_ ?? */
@@ -24,6 +31,23 @@ __asm__(
     " BASR    r14,r15\n"           /* r15 now holds relocated main()\n. */
 
 /* TODO: call _dl_fini */
+
+    /* Create a fake stub, just enough to get to the C code. */
+    ".globl   _dl_start$fent\n"
+    ".globl   _dl_start$pool\n"
+    ".globl   _dl_start$pgt\n"
+    ".globl   _start_glue\n"
+    " .type _start_glue,@function\n"
+    " .balign 4\n"
+    "_start_glue:\n"
+    " L       r12,12(r15)\n"
+    " BR      r12\n"
+    " NOPR    0\n"
+    " .long 0\n"
+    " .long _dl_start$fent\n"
+    " .long _dl_start$pool\n"
+    " .long 512\n"                 /* Stack size. Unknown but large. */
+    " .long _dl_start$pgt\n"
 
     " .ltorg\n"
     " .size _start,.-_start\n"

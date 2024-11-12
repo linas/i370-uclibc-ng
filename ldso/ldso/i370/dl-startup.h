@@ -12,6 +12,7 @@
  */
 __asm__(
     " .section .text\n"
+    ".globl   _dl_start\n"
     ".globl   _start\n"
     " .type _start,@function\n"
     " .balign 4\n"
@@ -51,6 +52,7 @@ __asm__(
 
     " .ltorg\n"
     " .size _start,.-_start\n"
+    " .size _start_glue,.-_start_glue\n"
     " .previous\n"
 );
 

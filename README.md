@@ -31,6 +31,30 @@ Alternately:
   "Support global constructors and destructors"
 ```
 
+Status
+------
+Version 1.0.0 -- October 2024 -- "everything works". Here, "everything"
+means "enough to compile and have a fully functional, stable BusyBox".
+This includes working setjmp/longjmp, basic signal handling, and working
+floating-point math libraries.  Things that don't work include
+multi-threading (either LinuxThreads or posix threads) and dynamic
+linking/loading.
+
+Basic multi-threading should be straightforward, obtained by implementing
+mutex locks and atomics. Advanced multi-threading requires changes to the
+compiler & binutils to support TLS.
+
+Support for dynamic loading has been started but remains mostly incomplete.
+Support for PIC in the compiler and assembler is effectively complete;
+support for linking against shared libraries (using the binutils linker) is
+largely done, but still incomplete.
+
+So, yes, "everything works", if you stick to static linking and basic
+C coding.  This is enough to get stable, working crash-free shells and
+all the basic unix commands from BusyBox. The compiler and assembler
+can also be compiled, and the resulting binaries work fine (i.e. create
+working code).
+
 Original README
 ---------------
   uClibc-ng - a small C Library for Linux
@@ -60,7 +84,7 @@ uClibc-ng is maintained by Waldemar Brodkorb and is licensed under the GNU
 LESSER GENERAL PUBLIC LICENSE. This license allows you to make closed source
 commercial applications using an unmodified version of uClibc-ng. You do not
 need to give away all your source code just because you use uClibc-ng and/or
-run on Linux. You should, however, carefuly review the license and make certain
+run on Linux. You should, however, carefully review the license and make certain
 you understand and abide by it strictly.
 
 For installation instructions, see the file INSTALL.
